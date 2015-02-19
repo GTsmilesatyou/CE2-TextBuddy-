@@ -7,6 +7,7 @@
 #include <vector>
 
 using namespace std;
+const int requiredNumberofParameters = 2;
 
 //print the error message when the number of CLP passed into the fuction is not 2
 void printErrorNumberofCLP(){
@@ -56,7 +57,7 @@ void printClearFileMsg(string outputFile){
 //the number of parameters is passed inside the function (argc)
 //check if the number of parameters is not 2, return false
 bool checkNumberofCLP(int argc){
-	if (argc == 2){
+	if (argc == requiredNumberofParameters){
 		return true;
 	}
 	else{
