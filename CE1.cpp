@@ -9,14 +9,19 @@
 using namespace std;
 const int requiredNumberofParameters = 2;
 
-//print the error message when the number of CLP passed into the fuction is not 2
+//print error message when the number of CLP passed into the fuction is not the requiredNumberofParameters
 void printErrorNumberofCLP(){
 	cout << endl << "Wrong Number of Command Line Parameters! Please enter 2 parameters." << endl << endl;
 }
 
-//print the error message when the textfile is of a wrong format
+//print error message when the textfile is of a wrong format
 void printErrorParameterFormat(){
 	cout << endl << "Please enter a .txt file!" << endl << endl;
+}
+
+//print error message when the user key in an invalid command
+void printErrorInvalidCommand(){
+	cout << endl << "Command Invalid! >.<" << endl << endl;
 }
 
 //print the Welcome Message when commencing TextBuddy
@@ -27,11 +32,6 @@ void printWelcomeMsg(string fileTobeOpened){
 //print line to prompt user for input
 void printCommandPrompt(){
 	cout << "command: ";
-}
-
-//print error message when the user key in an invalid command
-void printErrorInvalidCommand(){
-	cout << endl << "Command Invalid! >.<" << endl <<endl;
 }
 
 //function called inside addLine function
