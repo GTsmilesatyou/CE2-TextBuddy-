@@ -19,7 +19,6 @@ void printErrorParameterFormat(){
 }
 
 //print the Welcome Message when commencing TextBuddy
-//function is called after checking for no. of CLP and output file format
 void printWelcomeMsg(string fileTobeOpened){
 	cout << endl << "Welcome to TextBuddy. " << fileTobeOpened << " is ready for use" << endl << endl;
 }
@@ -35,24 +34,20 @@ void printErrorInvalidCommand(){
 }
 
 //function called inside addLine function
-//message only printed after adding the line successfully
 void printaddLineMsg(string input, string outputFile){
 	cout << endl << "added to " << outputFile << ": \"" << input << "\"" << endl << endl;
 }
 
 //function called inside deleteLine function
-//message only printed after deleting the respective line successfully
 void printdeleteLineMsg(string contentTobeDeleted, string outputFile){
 	cout << endl << "deleted from " << outputFile << ": \"" << contentTobeDeleted << "\"" << endl << endl;
 }
 
-//function called inside the display function
 //if the output file is empty, the message is printed
 void printEmptyFileMsg(string outputFile){
 	cout << endl << outputFile << " is empty" << endl;
 }
 
-//function called inside the clearFile function
 //message is printed after erasing the file content
 void printClearFileMsg(string outputFile){
 	cout << endl << "all content deleted from " << outputFile << endl << endl;
