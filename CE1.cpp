@@ -148,6 +148,28 @@ void clearFile(string outputFile){
 	printClearFileMsg(outputFile);
 }
 
+void searchFile(string outputFile){
+
+}
+
+void sortFile(string outputFile){
+	ifstream readFile(outputFile);
+	list<string> tempFileContent;
+	string tempStorage;
+	while (getline(readFile, tempStorage)){
+		tempFileContent.push_back(tempStorage);
+	}
+	tempFileContent.sort();
+	ofstream writeFile(outputFile);
+	while (!tempFileContent.empty()){
+		writeFile << tempFileContent.front() << endl;
+		tempFileContent.pop_front();
+	}
+	readFile.close();
+	writeFile.close();
+
+}
+
 //this function is called by performTextBuddy
 //four different commands will call four different fuctions 
 //error message would be printed if the input command is invalid
@@ -163,6 +185,12 @@ void processCommand(string command, string outputFile){
 	}
 	else if (command == "clear"){
 		clearFile(outputFile);
+	}
+	else if (command == "search"){
+		searchFile(outputFile);
+	}
+	else if (command == "sort"){
+		sortFile(outputFile);
 	}
 	else{
 		printErrorInvalidCommand();
