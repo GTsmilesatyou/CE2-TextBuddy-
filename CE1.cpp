@@ -168,7 +168,7 @@ void sortFile(string outputFile){
 	}
 	readFile.close();
 	writeFile.close();
-
+	displayfile(outputFile);
 }
 
 //this function is called by performTextBuddy
