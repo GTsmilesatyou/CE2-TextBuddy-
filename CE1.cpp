@@ -224,9 +224,6 @@ int main(int argc, char* argv[]){
 		printErrorParameterFormat();
 	}
 	else{
-		for (int i = 0; i < 10; i++){
-			cout << i << endl;
-		}
 		printWelcomeMsg(argv[1]);
 		printCommandPrompt();
 		performTextBuddy(argv[1]); 
