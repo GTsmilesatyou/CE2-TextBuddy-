@@ -15,14 +15,8 @@ public:
 		return TextBuddyContent;
 	};
 
-	vector<string> setTextBuddyContent(vector<string> TextBuddyContent, string outputFile){
-		ifstream readFile(outputFile);
-		string tempStorage;
-		while (getline(readFile, tempStorage)){
-			TextBuddyContent.push_back(tempStorage);
-		}
-		return TextBuddyContent;
-	};
+	void initialiseTextBuddyContent(string outputFile);
+	void writeFile(vector<string> TextBuddyContent, string outputFile);
 
 	void printErrorNumberofCLP();
 	void printErrorParameterFormat();
@@ -41,13 +35,15 @@ public:
 
 	void addLine(string outputFile);
 	void deleteLine(string outputFile);
-	void displayfile(string outputFile);
+	void displayfile(vector<string> TextBuddyContent);
 	void clearFile(string outputFile);
-	void searchFile(string outputFile);
+	void searchFile(vector<string> TextBuddyContent);
 	void sortFile(string outputFile);
 
-	void writeFile(vector<string> TextBuddyContent, string outputFile);
+	void processCommand(string command, string outputFile);
+	void performTextBuddy(string outputFile);
 
+	int main(int argc, string argv);
 
 private:
 	vector<string> TextBuddyContent;

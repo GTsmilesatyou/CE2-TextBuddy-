@@ -7,60 +7,77 @@
 #include <fstream>
 #include <vector>
 #include <list>
-
+#include <algorithm>
 
 using namespace std;
+
 const int requiredNumberofParameters = 2;
 
+void TextBuddy::initialiseTextBuddyContent(string outputFile){
+	ifstream readFile(outputFile);
+	string tempStorage;
+	while (getline(readFile, tempStorage)){
+		TextBuddyContent.push_back(tempStorage);
+	}
+	readFile.close();
+};
+
+void TextBuddy::writeFile(vector<string> TextBuddyContent, string outputFile){
+	ofstream writeFile(outputFile);
+	for (int i = 0; i < TextBuddyContent.size(); i++){
+		writeFile << TextBuddyContent[i] << endl;
+	}
+	writeFile.close();
+}
 
 //print error message when the number of CLP passed into the fuction is not the requiredNumberofParameters
-void printErrorNumberofCLP(){
+void TextBuddy::printErrorNumberofCLP(){
 	cout << endl << "Wrong Number of Command Line Parameters! Please enter 2 parameters." << endl << endl;
 }
 
 //print error message when the textfile is of a wrong format
-void printErrorParameterFormat(){
+void TextBuddy::printErrorParameterFormat(){
 	cout << endl << "Please enter a .txt file!" << endl << endl;
 }
 
 //print error message when the user key in an invalid command
-void printErrorInvalidCommand(){
+void TextBuddy::printErrorInvalidCommand(){
 	cout << endl << "Command Invalid! >.<" << endl << endl;
 }
 
 //print the Welcome Message when commencing TextBuddy
-void printWelcomeMsg(string fileTobeOpened){
+void TextBuddy::printWelcomeMsg(string fileTobeOpened){
 	cout << endl << "Welcome to TextBuddy. " << fileTobeOpened << " is ready for use" << endl << endl;
 }
 
 //print line to prompt user for input
-void printCommandPrompt(){
+void TextBuddy::printCommandPrompt(){
 	cout << "command: ";
 }
 
 //function called inside addLine function
-void printaddLineMsg(string input, string outputFile){
+void TextBuddy::printaddLineMsg(string input, string outputFile){
 	cout << endl << "added to " << outputFile << ": \"" << input << "\"" << endl << endl;
 }
 
 //function called inside deleteLine function
-void printdeleteLineMsg(string contentTobeDeleted, string outputFile){
+void TextBuddy::printdeleteLineMsg(string contentTobeDeleted, string outputFile){
 	cout << endl << "deleted from " << outputFile << ": \"" << contentTobeDeleted << "\"" << endl << endl;
 }
 
 //if the output file is empty, the message is printed
-void printEmptyFileMsg(string outputFile){
+void TextBuddy::printEmptyFileMsg(string outputFile){
 	cout << endl << outputFile << " is empty" << endl;
 }
 
 //message is printed after erasing the file content
-void printClearFileMsg(string outputFile){
+void TextBuddy::printClearFileMsg(string outputFile){
 	cout << endl << "all content deleted from " << outputFile << endl << endl;
 }
 
 //the number of parameters is passed inside the function (argc)
 //check if the number of parameters is not 2, return false
-bool checkNumberofCLP(int argc){
+bool TextBuddy::checkNumberofCLP(int argc){
 	if (argc == requiredNumberofParameters){
 		return true;
 	}
@@ -72,7 +89,7 @@ bool checkNumberofCLP(int argc){
 //the name of the outputFile is passed inside to check if it is of the .txt format
 //use string as a parameter
 //value returned is a boolean value
-bool checkParameterFormat(string textfileName){
+bool TextBuddy::checkParameterFormat(string textfileName){
 	int textfileLength = textfileName.size();
 	string format = textfileName.substr(textfileLength - 4, textfileLength);
 	if (format == ".txt"){
@@ -88,14 +105,13 @@ bool checkParameterFormat(string textfileName){
 //takes string outputFile name as the parameter
 //using ifstream and ofstream to manipulate the outputFile
 //print a message when adding line is done
-void addLine(string outputFile){
+void TextBuddy::addLine(string outputFile){
 	string temp;
 	string input;
 	getline(cin, temp);
 	input = temp.substr(1);
-	ofstream writeFile(outputFile, ios::app);
-	writeFile << input << endl;
-	writeFile.close();
+	TextBuddyContent.push_back(input);
+	writeFile(TextBuddyContent, outputFile);
 	printaddLineMsg(input, outputFile);
 }
 
@@ -103,82 +119,64 @@ void addLine(string outputFile){
 //takes string outputFile name as the parameter
 //using ifstream and ofstream to manipulate the outputFile
 //print a message when deleting line is done
-void deleteLine(string outputFile){
+void TextBuddy::deleteLine(string outputFile){
 	int lineNumbertobeDeleted;
 	cin >> lineNumbertobeDeleted;
-	ifstream readFile(outputFile);
-	vector<string> tempList;
-	string tempStorage;
-	while (getline(readFile, tempStorage)){
-		tempList.push_back(tempStorage);
-	}
-	printdeleteLineMsg(tempList[lineNumbertobeDeleted - 1], outputFile);
-	tempList.erase(tempList.begin() + lineNumbertobeDeleted - 1);
-	ofstream writeFile(outputFile);
-	while (!tempList.empty()){
-		writeFile << tempList[0] << endl;
-		tempList.erase(tempList.begin());
-	}
-	readFile.close();
-	writeFile.close();
+	
+	printdeleteLineMsg(TextBuddyContent[lineNumbertobeDeleted - 1], outputFile);
+	TextBuddyContent.erase(TextBuddyContent.begin() + lineNumbertobeDeleted - 1);
+	writeFile(TextBuddyContent, outputFile);
 }
 
 ////this function performs displaying all content inside the file
 //takes string outputFile name as the parameter
 //using ifstream and ofstream to manipulate the outputFile
 //print a message when the ouput file is empty
-void displayfile(string outputFile){
-	ifstream readFile(outputFile);
-	string tempStorage;
-	int i = 0;
-	while (getline(readFile, tempStorage)){
-		i++;
-		cout << endl << i <<". "<< tempStorage << endl;
+void TextBuddy::displayfile(vector<string> TextBuddyContent){
+	for (int i = 0; i < TextBuddyContent.size(); i++){
+		cout << i+1<<". "<<TextBuddyContent[i] << endl;
 	}
-	if (i == 0) {
-		printEmptyFileMsg(outputFile);
-	}
-	cout << endl;
-	readFile.close();
 }
 
 //this function performs clearing all the content inside the outputFile
 //takes string outputFile name as the parameter
 //using ifstream and ofstream to manipulate the outputFile
 //print a message when clearing is done
-void clearFile(string outputFile){
+void TextBuddy::clearFile(string outputFile){
 	ofstream clearContent;
 	clearContent.open(outputFile);
 	clearContent.close();
+	TextBuddyContent.clear();
 	printClearFileMsg(outputFile);
 }
 
-void searchFile(string outputFile){
+void TextBuddy::searchFile(vector<string> TextBuddyContent){
 
 }
 
-void sortFile(string outputFile){
-	ifstream readFile(outputFile);
+void TextBuddy::sortFile(string outputFile){
+	sort(TextBuddyContent.begin(), TextBuddyContent.end());
+	/**ifstream readFile(outputFile);
 	list<string> tempFileContent;
 	string tempStorage;
 	while (getline(readFile, tempStorage)){
 		tempFileContent.push_back(tempStorage);
 	}
 	tempFileContent.sort();
-	ofstream writeFile(outputFile);
-	while (!tempFileContent.empty()){
-		writeFile << tempFileContent.front() << endl;
-		tempFileContent.pop_front();
-	}
 	readFile.close();
-	writeFile.close();
-	displayfile(outputFile);
+	TextBuddyContent.clear();
+	while (!tempFileContent.empty()){
+		TextBuddyContent.push_back(tempFileContent.front());
+		tempFileContent.pop_front();
+	}******************************/
+	writeFile(TextBuddyContent, outputFile);
+	displayfile(TextBuddyContent);
 }
 
 //this function is called by performTextBuddy
 //four different commands will call four different fuctions 
 //error message would be printed if the input command is invalid
-void processCommand(string command, string outputFile){
+void TextBuddy::processCommand(string command, string outputFile){
 	if (command == "add"){
 		addLine(outputFile);
 	}
@@ -186,13 +184,13 @@ void processCommand(string command, string outputFile){
 		deleteLine(outputFile);
 	}
 	else if (command == "display"){
-		displayfile(outputFile);
+		displayfile(TextBuddyContent);
 	}
 	else if (command == "clear"){
 		clearFile(outputFile);
 	}
 	else if (command == "search"){
-		searchFile(outputFile);
+		searchFile(TextBuddyContent);
 	}
 	else if (command == "sort"){
 		sortFile(outputFile);
@@ -205,7 +203,7 @@ void processCommand(string command, string outputFile){
 //this function is called after checking for the number of CLP and output file format
 //use the outputFile name as the parameter
 //function will do nothing if command is "exit"
-void performTextBuddy(string outputFile){
+void TextBuddy::performTextBuddy(string outputFile){
 	string command;
 	while (cin >> command){
 		if (command == "exit"){
@@ -219,18 +217,19 @@ void performTextBuddy(string outputFile){
 }
 
 //main function
-int main(int argc, char* argv[]){
+int TextBuddy::main(int argc, string argv){
 
 	if (!checkNumberofCLP(argc)){
 		printErrorNumberofCLP();
 	}
-	else if (!checkParameterFormat(argv[1])){
+	else if (!checkParameterFormat(argv)){
 		printErrorParameterFormat();
 	}
 	else{
-		printWelcomeMsg(argv[1]);
+		printWelcomeMsg(argv);
 		printCommandPrompt();
-		performTextBuddy(argv[1]); 
+		initialiseTextBuddyContent(argv);
+		performTextBuddy(argv); 
 	}
 	return 0;
 }
