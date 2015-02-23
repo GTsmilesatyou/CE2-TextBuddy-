@@ -6,7 +6,6 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
-#include <list>
 #include <algorithm>
 
 using namespace std;
@@ -156,19 +155,6 @@ void TextBuddy::searchFile(vector<string> TextBuddyContent){
 
 void TextBuddy::sortFile(string outputFile){
 	sort(TextBuddyContent.begin(), TextBuddyContent.end());
-	/**ifstream readFile(outputFile);
-	list<string> tempFileContent;
-	string tempStorage;
-	while (getline(readFile, tempStorage)){
-		tempFileContent.push_back(tempStorage);
-	}
-	tempFileContent.sort();
-	readFile.close();
-	TextBuddyContent.clear();
-	while (!tempFileContent.empty()){
-		TextBuddyContent.push_back(tempFileContent.front());
-		tempFileContent.pop_front();
-	}******************************/
 	writeFile(TextBuddyContent, outputFile);
 	displayfile(TextBuddyContent);
 }
