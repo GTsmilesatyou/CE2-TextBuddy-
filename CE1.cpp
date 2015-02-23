@@ -1,14 +1,17 @@
 //Liu Gantian 
 //A0113555L
 //CE2
+#include "TextBuddy.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
 #include <vector>
 #include <list>
 
+
 using namespace std;
 const int requiredNumberofParameters = 2;
+
 
 //print error message when the number of CLP passed into the fuction is not the requiredNumberofParameters
 void printErrorNumberofCLP(){
@@ -79,6 +82,7 @@ bool checkParameterFormat(string textfileName){
 		return false;
 	}
 }
+
 
 //this function performs adding new lines to the outputFile
 //takes string outputFile name as the parameter
@@ -228,6 +232,5 @@ int main(int argc, char* argv[]){
 		printCommandPrompt();
 		performTextBuddy(argv[1]); 
 	}
-	system("pause");
 	return 0;
 }
