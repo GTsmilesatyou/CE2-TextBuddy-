@@ -142,8 +142,25 @@ void TextBuddy::searchFile(vector<string> TextBuddyContent){
 
 }
 
+bool TextBuddy::caselessCompare(string const& lhsIn, string const& rhsIn) {
+	char const* lhs = lhsIn.c_str();
+	char const* rhs = rhsIn.c_str();
+	for (; *lhs != '\0' && *rhs != '\0'; ++lhs, ++rhs) {
+		if (tolower(*lhs) != tolower(*rhs)) {
+			return (tolower(*lhs) < tolower(*rhs));
+		}
+		else if (*lhs != *rhs) {
+			if (*(lhs + 1) == '\0' && *(rhs + 1) == '\0') {
+				return (*lhs < *rhs);
+			}
+		}
+	}
+	return (tolower(*lhs) < tolower(*rhs));
+}
+
 void TextBuddy::sortFile(){
-	sort(TextBuddyContent.begin(), TextBuddyContent.end());
+
+	sort(TextBuddyContent.begin(), TextBuddyContent.end(), caselessCompare);
 
 }
 

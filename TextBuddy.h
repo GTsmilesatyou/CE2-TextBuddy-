@@ -38,6 +38,7 @@ public:
 	void displayfile(vector<string> TextBuddyContent);
 	void clearFile(string outputFile);
 	void searchFile(vector<string> TextBuddyContent);
+	static bool TextBuddy::caselessCompare(string const& lhsIn, string const& rhsIn);
 	void sortFile();
 
 	void processCommand(string command, string outputFile);
