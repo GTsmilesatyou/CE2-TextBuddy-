@@ -104,27 +104,16 @@ bool TextBuddy::checkParameterFormat(string textfileName){
 //takes string outputFile name as the parameter
 //using ifstream and ofstream to manipulate the outputFile
 //print a message when adding line is done
-void TextBuddy::addLine(string outputFile){
-	string temp;
-	string input;
-	getline(cin, temp);
-	input = temp.substr(1);
-	TextBuddyContent.push_back(input);
-	writeFile(TextBuddyContent, outputFile);
-	printaddLineMsg(input, outputFile);
+void TextBuddy::addLine(string lineToBeAdded){
+	TextBuddyContent.push_back(lineToBeAdded);
 }
 
 //this function performs deleting specific lines to the outputFile
 //takes string outputFile name as the parameter
 //using ifstream and ofstream to manipulate the outputFile
 //print a message when deleting line is done
-void TextBuddy::deleteLine(string outputFile){
-	int lineNumbertobeDeleted;
-	cin >> lineNumbertobeDeleted;
-	
-	printdeleteLineMsg(TextBuddyContent[lineNumbertobeDeleted - 1], outputFile);
-	TextBuddyContent.erase(TextBuddyContent.begin() + lineNumbertobeDeleted - 1);
-	writeFile(TextBuddyContent, outputFile);
+void TextBuddy::deleteLine(int lineToBeDeleted){
+	TextBuddyContent.erase(TextBuddyContent.begin() + lineToBeDeleted - 1);
 }
 
 ////this function performs displaying all content inside the file
@@ -153,10 +142,9 @@ void TextBuddy::searchFile(vector<string> TextBuddyContent){
 
 }
 
-void TextBuddy::sortFile(string outputFile){
+void TextBuddy::sortFile(){
 	sort(TextBuddyContent.begin(), TextBuddyContent.end());
-	writeFile(TextBuddyContent, outputFile);
-	displayfile(TextBuddyContent);
+
 }
 
 //this function is called by performTextBuddy
@@ -164,13 +152,28 @@ void TextBuddy::sortFile(string outputFile){
 //error message would be printed if the input command is invalid
 void TextBuddy::processCommand(string command, string outputFile){
 	if (command == "add"){
-		addLine(outputFile);
+		string temp;
+		string lineToBeAdded;
+		getline(cin, temp);
+		lineToBeAdded = temp.substr(1);
+		addLine(lineToBeAdded);
+		writeFile(TextBuddyContent, outputFile);
+		printaddLineMsg(lineToBeAdded, outputFile);
 	}
 	else if (command == "delete"){
-		deleteLine(outputFile);
+		int lineNumbertobeDeleted;
+		cin >> lineNumbertobeDeleted;
+		printdeleteLineMsg(TextBuddyContent[lineNumbertobeDeleted - 1], outputFile);
+		deleteLine(lineNumbertobeDeleted);
+		writeFile(TextBuddyContent, outputFile);
 	}
 	else if (command == "display"){
-		displayfile(TextBuddyContent);
+		if (TextBuddyContent.empty()){
+			printEmptyFileMsg(outputFile);
+		}
+		else{
+			displayfile(TextBuddyContent);
+		}
 	}
 	else if (command == "clear"){
 		clearFile(outputFile);
@@ -179,7 +182,9 @@ void TextBuddy::processCommand(string command, string outputFile){
 		searchFile(TextBuddyContent);
 	}
 	else if (command == "sort"){
-		sortFile(outputFile);
+		sortFile();
+		writeFile(TextBuddyContent, outputFile);
+		displayfile(TextBuddyContent);
 	}
 	else{
 		printErrorInvalidCommand();

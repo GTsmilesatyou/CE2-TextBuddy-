@@ -33,17 +33,19 @@ public:
 	bool checkNumberofCLP(int argc);
 	bool checkParameterFormat(string textfileName);
 
-	void addLine(string outputFile);
-	void deleteLine(string outputFile);
+	void addLine(string lineToBeAdded);
+	void deleteLine(int lineToBeDeleted);
 	void displayfile(vector<string> TextBuddyContent);
 	void clearFile(string outputFile);
 	void searchFile(vector<string> TextBuddyContent);
-	void sortFile(string outputFile);
+	void sortFile();
 
 	void processCommand(string command, string outputFile);
 	void performTextBuddy(string outputFile);
 
 	int main(int argc, string argv);
+
+	
 
 private:
 	vector<string> TextBuddyContent;
