@@ -1,3 +1,7 @@
+//Liu Gantian 
+//A0113555L
+//CE2
+//Unit Test 2
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
@@ -9,10 +13,9 @@ namespace UnitTest2
 	{
 	public:
 		
+		//When each string inside TextBuddyContent contains the exact input string
 		TEST_METHOD(SearchWithExactInput)
-		{
-			// TODO: Your test code here
-			
+		{	
 			TextBuddy tbuddy;
 
 			tbuddy.addLine("Lily is a girl");
@@ -31,10 +34,9 @@ namespace UnitTest2
 
 		}
 
+		//Search TextBuddyContent regardless of the content case.
 		TEST_METHOD(SearchWithCaseDifferentInput)
 		{
-			// TODO: Your test code here
-
 			TextBuddy tbuddy;
 
 			tbuddy.addLine("Lily is a girl");

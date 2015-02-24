@@ -1,6 +1,7 @@
 //Liu Gantian 
 //A0113555L
 //CE2
+//TextBuddy.cpp file
 #include "TextBuddy.h"
 #include <iostream>
 #include <sstream>
@@ -12,6 +13,7 @@ using namespace std;
 
 const int requiredNumberofParameters = 2;
 
+//This function allows TextBuddyContent to have the current content of the outputFile
 void TextBuddy::initialiseTextBuddyContent(string outputFile){
 	ifstream readFile(outputFile);
 	string tempStorage;
@@ -21,6 +23,7 @@ void TextBuddy::initialiseTextBuddyContent(string outputFile){
 	readFile.close();
 };
 
+//This function performs writting content inside outputFile from TextBuddyContent
 void TextBuddy::writeFile(vector<string> TextBuddyContent, string outputFile){
 	ofstream writeFile(outputFile);
 	for (int i = 0; i < TextBuddyContent.size(); i++){
@@ -29,47 +32,40 @@ void TextBuddy::writeFile(vector<string> TextBuddyContent, string outputFile){
 	writeFile.close();
 }
 
-//print error message when the number of CLP passed into the fuction is not the requiredNumberofParameters
+//print error messages
 void TextBuddy::printErrorNumberofCLP(){
 	cout << endl << "Wrong Number of Command Line Parameters! Please enter 2 parameters." << endl << endl;
 }
 
-//print error message when the textfile is of a wrong format
 void TextBuddy::printErrorParameterFormat(){
 	cout << endl << "Please enter a .txt file!" << endl << endl;
 }
 
-//print error message when the user key in an invalid command
 void TextBuddy::printErrorInvalidCommand(){
 	cout << endl << "Command Invalid! >.<" << endl << endl;
 }
 
-//print the Welcome Message when commencing TextBuddy
+//print other messages that are used repeatedly
 void TextBuddy::printWelcomeMsg(string fileTobeOpened){
 	cout << endl << "Welcome to TextBuddy. " << fileTobeOpened << " is ready for use" << endl << endl;
 }
 
-//print line to prompt user for input
 void TextBuddy::printCommandPrompt(){
 	cout << "command: ";
 }
 
-//function called inside addLine function
 void TextBuddy::printaddLineMsg(string input, string outputFile){
 	cout << endl << "added to " << outputFile << ": \"" << input << "\"" << endl << endl;
 }
 
-//function called inside deleteLine function
 void TextBuddy::printdeleteLineMsg(string contentTobeDeleted, string outputFile){
 	cout << endl << "deleted from " << outputFile << ": \"" << contentTobeDeleted << "\"" << endl << endl;
 }
 
-//if the output file is empty, the message is printed
 void TextBuddy::printEmptyFileMsg(string outputFile){
 	cout << endl << outputFile << " is empty" << endl;
 }
 
-//message is printed after erasing the file content
 void TextBuddy::printClearFileMsg(string outputFile){
 	cout << endl << "all content deleted from " << outputFile << endl << endl;
 }
@@ -121,9 +117,11 @@ void TextBuddy::deleteLine(int lineToBeDeleted){
 //using ifstream and ofstream to manipulate the outputFile
 //print a message when the ouput file is empty
 void TextBuddy::displayfile(vector<string> TextBuddyContent){
+	cout << endl;
 	for (int i = 0; i < TextBuddyContent.size(); i++){
 		cout << i+1<<". "<<TextBuddyContent[i] << endl;
 	}
+	cout << endl;
 }
 
 //this function performs clearing all the content inside the outputFile
@@ -137,13 +135,16 @@ void TextBuddy::clearFile(string outputFile){
 	TextBuddyContent.clear();
 	printClearFileMsg(outputFile);
 }
-
+//This function simply change the input string to its lower case and return the string
 string TextBuddy::changeCasetoLower(string input){
 	for (int i = 0; input[i] != '\0'; i++){
 		input[i] = tolower(input[i]);
 	}
 	return input;
 }
+
+//This function would search the keyWord from the TextBuddyContent
+//Case insensitive search
 void TextBuddy::searchFile(string keyWord){
 	TempTextBuddy.clear();
 	for (int i = 0; i < TextBuddyContent.size(); i++){
@@ -155,6 +156,8 @@ void TextBuddy::searchFile(string keyWord){
 	return;
 }
 
+//caselessCompare and sortFile() would sort the TextBuddyContent alphabetically
+//The sort is case insensitive as well
 bool TextBuddy::caselessCompare(string const& lhsIn, string const& rhsIn) {
 	char const* lhs = lhsIn.c_str();
 	char const* rhs = rhsIn.c_str();
@@ -228,6 +231,7 @@ void TextBuddy::processCommand(string command, string outputFile){
 //use the outputFile name as the parameter
 //function will do nothing if command is "exit"
 void TextBuddy::performTextBuddy(string outputFile){
+	printCommandPrompt();
 	string command;
 	while (cin >> command){
 		if (command == "exit"){
@@ -251,7 +255,6 @@ int TextBuddy::main(int argc, string argv){
 	}
 	else{
 		printWelcomeMsg(argv);
-		printCommandPrompt();
 		initialiseTextBuddyContent(argv);
 		performTextBuddy(argv); 
 	}

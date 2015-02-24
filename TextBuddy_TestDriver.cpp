@@ -1,3 +1,6 @@
+//Liu Gantian 
+//A0113555L
+//CE2
 //main function
 #include "TextBuddy.h"
 #include <iostream>

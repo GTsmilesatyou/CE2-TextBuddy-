@@ -1,3 +1,7 @@
+//Liu Gantian 
+//A0113555L
+//CE2
+//Unit test 1
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
@@ -9,16 +13,16 @@ namespace UnitTest1
 	{
 	public:
 		
+		//Expected list should be sorted regardless of its case.
 		TEST_METHOD(CaseSensitivityTest)
 		{
-			// TODO: Your test code here
-			TextBuddy lala;
+			TextBuddy tbtest1;
 			
-			lala.addLine("Lily is a girl");
-			lala.addLine("little brown fox");
-			lala.addLine("Zebra is an animal");
-			lala.sortFile();
-			vector<string> actualTBList = lala.getTextBuddyContent();
+			tbtest1.addLine("Lily is a girl");
+			tbtest1.addLine("little brown fox");
+			tbtest1.addLine("Zebra is an animal");
+			tbtest1.sortFile();
+			vector<string> actualTBList = tbtest1.getTextBuddyContent();
 
 			vector<string> expectedTBList;
 			expectedTBList.push_back("Lily is a girl");
@@ -31,6 +35,7 @@ namespace UnitTest1
 						
 		}
 
+		//Numbers should appear before letters after sorting
 		TEST_METHOD(NumberOrderTest){
 			TextBuddy tbtest2;
 
