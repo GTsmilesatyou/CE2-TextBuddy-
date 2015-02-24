@@ -12,7 +12,6 @@ namespace UnitTest1
 		TEST_METHOD(CaseSensitivityTest)
 		{
 			// TODO: Your test code here
-			//Assert::AreEqual("hi", "hi");
 			TextBuddy lala;
 			
 			lala.addLine("Lily is a girl");

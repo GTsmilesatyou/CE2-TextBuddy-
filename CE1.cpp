@@ -138,8 +138,9 @@ void TextBuddy::clearFile(string outputFile){
 	printClearFileMsg(outputFile);
 }
 
-void TextBuddy::searchFile(vector<string> TextBuddyContent){
-
+void TextBuddy::searchFile(string keyWord){
+	
+	return;
 }
 
 bool TextBuddy::caselessCompare(string const& lhsIn, string const& rhsIn) {
@@ -196,7 +197,9 @@ void TextBuddy::processCommand(string command, string outputFile){
 		clearFile(outputFile);
 	}
 	else if (command == "search"){
-		searchFile(TextBuddyContent);
+		string keyWord;
+		cin >> keyWord;
+		searchFile(keyWord);
 	}
 	else if (command == "sort"){
 		sortFile();
