@@ -139,7 +139,12 @@ void TextBuddy::clearFile(string outputFile){
 }
 
 void TextBuddy::searchFile(string keyWord){
-	
+	TempTextBuddy.clear();
+	for (int i = 0; i < TextBuddyContent.size(); i++){
+		if (TextBuddyContent[i].find(keyWord)!= string::npos){
+			TempTextBuddy.push_back(TextBuddyContent[i]);
+		}
+	}
 	return;
 }
 
@@ -200,6 +205,7 @@ void TextBuddy::processCommand(string command, string outputFile){
 		string keyWord;
 		cin >> keyWord;
 		searchFile(keyWord);
+		displayfile(TempTextBuddy);
 	}
 	else if (command == "sort"){
 		sortFile();

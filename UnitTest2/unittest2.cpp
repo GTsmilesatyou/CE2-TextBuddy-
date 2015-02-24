@@ -20,7 +20,7 @@ namespace UnitTest2
 			tbuddy.addLine("Julia is a girl");
 			
 			tbuddy.searchFile("girl");
-			vector<string> actualTBList = tbuddy.getTextBuddyContent();
+			vector<string> actualTBList = tbuddy.getTempTextBuddy();
 
 			vector<string> expectedTBList;
 			expectedTBList.push_back("Lily is a girl");

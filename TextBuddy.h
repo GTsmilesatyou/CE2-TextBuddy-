@@ -15,6 +15,10 @@ public:
 		return TextBuddyContent;
 	};
 
+	vector<string> getTempTextBuddy(){
+		return TempTextBuddy;
+	};
+
 	void initialiseTextBuddyContent(string outputFile);
 	void writeFile(vector<string> TextBuddyContent, string outputFile);
 
@@ -50,5 +54,6 @@ public:
 
 private:
 	vector<string> TextBuddyContent;
+	vector<string> TempTextBuddy;
 };
 #endif
