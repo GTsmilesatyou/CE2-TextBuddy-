@@ -54,12 +54,6 @@ namespace UnitTest1
 			Assert::AreEqual(expectedTBList[1], actualTBList[1]);
 			Assert::AreEqual(expectedTBList[2], actualTBList[2]);
 
-
-
-
-
-
-
 		}
 
 	};
