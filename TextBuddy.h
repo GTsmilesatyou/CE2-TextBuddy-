@@ -41,7 +41,10 @@ public:
 	void deleteLine(int lineToBeDeleted);
 	void displayfile(vector<string> TextBuddyContent);
 	void clearFile(string outputFile);
+
+	string changeCasetoLower(string input);
 	void searchFile(string keyWord);
+	
 	static bool TextBuddy::caselessCompare(string const& lhsIn, string const& rhsIn);
 	void sortFile();
 

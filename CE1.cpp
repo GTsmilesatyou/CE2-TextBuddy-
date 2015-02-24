@@ -138,10 +138,17 @@ void TextBuddy::clearFile(string outputFile){
 	printClearFileMsg(outputFile);
 }
 
+string TextBuddy::changeCasetoLower(string input){
+	for (int i = 0; input[i] != '\0'; i++){
+		input[i] = tolower(input[i]);
+	}
+	return input;
+}
 void TextBuddy::searchFile(string keyWord){
 	TempTextBuddy.clear();
 	for (int i = 0; i < TextBuddyContent.size(); i++){
-		if (TextBuddyContent[i].find(keyWord)!= string::npos){
+		string temp = changeCasetoLower(TextBuddyContent[i]);
+		if (temp.find(keyWord)!= string::npos){
 			TempTextBuddy.push_back(TextBuddyContent[i]);
 		}
 	}
